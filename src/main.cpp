@@ -190,21 +190,28 @@ void setup() {
   pinMode(A0, INPUT);
 
   Serial << endl << endl;
-  Homie_setFirmware("awesome-temperature", "1.0.0");
+  Homie_setFirmware("smartWashMachine", "1.0.0");
   Homie.setSetupFunction(setupHandler).setLoopFunction(loopHandler);
 
-  temperatureNode.advertise("degrees").setName("Degrees")
-                                      .setDatatype("float")
-                                      .setUnit("ºC");
-  humidityNode.advertise("humidity").setName("Humidity")
-                                      .setDatatype("float")
-                                      .setUnit("% rH");
-  laundryNode.advertise("laundry").setName("Laundy")
-                                      .setDatatype("boolean");
-  clothesLineNode.advertise("clothes-line").setName("Button")
-                                .setDatatype("enum")
-                                .setFormat("CHECKED,UNCHECKED")
-                                .setRetained(false);
+  temperatureNode.advertise("degrees")
+    .setName("Degrees")
+    .setDatatype("float")
+    .setUnit("ºC");
+
+  humidityNode.advertise("humidity")
+    .setName("Humidity")
+    .setDatatype("float")
+    .setUnit("% rH");
+
+  laundryNode.advertise("laundry")
+    .setName("Laundy")
+    .setDatatype("boolean");
+
+  clothesLineNode.advertise("clothes-line")
+    .setName("Button")
+    .setDatatype("enum")
+    .setFormat("CHECKED,UNCHECKED")
+    .setRetained(false);
 
   Homie.setup();
 }

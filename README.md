@@ -1,4 +1,4 @@
-# SmartLaundry
+# Smart Wash Machine
 A Sensor to detect when the washing machine has finished and is ready to extend the laundry.
 Using
 - Wemos D1 Mini

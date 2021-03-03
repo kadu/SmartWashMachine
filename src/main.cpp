@@ -9,7 +9,6 @@
 #include <OneButton.h>
 #include <images.h>
 
-
 #define SCREEN_WIDTH   128
 #define SCREEN_HEIGHT  64
 #define OLED_RESET     -1
@@ -39,19 +38,16 @@ HomieNode humidityNode("humidity","Humidity","humidity");
 HomieNode laundryNode("laundry","Laundry","laundry");
 HomieNode clothesLineNode("clothes-line","Clothes-line","button");
 
-
 Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 OneButton button(BUTTON_PIN, true);
 ClosedCube_HDC1080 hdc1080;
 SimpleTimer timer;
 
 float getVPP() {
-  float result;
-
-  int readValue = 0; //value read from the sensor
-  int maxValue = 0; // store max value here
-  int minValue = 1024; // store min value here
-
+  float result        = 0;
+  int readValue       = 0; //value read from the sensor
+  int maxValue        = 0; // store max value here
+  int minValue        = 1024; // store min value here
   uint32_t start_time = millis();
 
   while((millis()-start_time) < 100) {
@@ -64,7 +60,7 @@ float getVPP() {
     }
 
   }
-  /*
+  /* to debug
     Serial.print(readValue);
     Serial.println(" readValue ");
     Serial.print(maxValue);
@@ -156,9 +152,8 @@ void loopHandler() {
   }
 
   if((laundryOffWasShowed == false) && (AmpsRMS == 0) && (lastLaundryOn + laundryOffDelay > millis()) && (lastLaundryOn > 0)) {
-    Serial.println("entrou");
 
-    Serial.printf("lastLaundryOn [%d] - laundryOffDelay [%d] - millis [%d]", lastLaundryOn, laundryOffDelay, millis());
+    // Serial.printf("lastLaundryOn [%d] - laundryOffDelay [%d] - millis [%d]", lastLaundryOn, laundryOffDelay, millis());
     display.clearDisplay();
     display.drawBitmap(0, 0, myBitmap6, 128, 64, 1);
     display.display();
@@ -168,7 +163,6 @@ void loopHandler() {
     laundryNode.setProperty("laundry").send("false");
     laundryOffWasShowed = true;
     laundryIsON = false;
-    Serial.println(" laundryOffWasShowed ta no true");
   }
 }
 
@@ -177,7 +171,7 @@ void setupHandler() {
 
   if(!display.begin(SSD1306_SWITCHCAPVCC, SCREEN_ADDRESS)) { // Address 0x3D for 128x64
     Serial.println(F("SSD1306 allocation failed"));
-    for(;;); // Don't proceed, loop forever
+    // for(;;); // Don't proceed, loop forever
   }
 
   display.clearDisplay();
